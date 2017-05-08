@@ -1,2 +1,2 @@
 # springboot-jwt
-An example Spring Boot Application for Securing a REST API with JSON Web Token (JWT).
+An Example Spring Boot Application for Securing a REST API with JSON Web Token (JWT).
