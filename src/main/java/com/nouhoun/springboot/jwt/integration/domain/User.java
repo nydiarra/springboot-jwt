@@ -18,20 +18,16 @@ public class User {
     private Long id;
 
     @Column(name = "username")
-    @NotEmpty
     private String username;
 
     @Column(name = "password")
-    @NotEmpty
     @JsonIgnore
     private String password;
 
     @Column(name = "first_name")
-    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name")
-    @NotEmpty
     private String lastName;
 
     /**

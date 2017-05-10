@@ -27,7 +27,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    static final String SIGNING_KEY = "MaYzk@SjmkzPC57L";
+    static final String SIGNING_KEY = "MaYzkSjmkzPC57L";
     static final Integer ENCODING_STRENGTH = 256;
     static final String SECURITY_REALM = "Sprinb Boot JWT Example Realm";
 
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/actuator/**", "/api-docs/**").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/springjwt/**").authenticated()
                 .and()
                 .httpBasic()
                 .realmName(SECURITY_REALM)
