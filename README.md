@@ -91,41 +91,41 @@ Use one of the several ways of running a Spring Boot application. Below are just
         
     * Access content available only to an admin user
     
-    As with the previous example first generate an access token for the admin user with the credentials provided above then run
-        `curl  http://localhost:8080/springjwt/users -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNDk0NDU0OTIzLCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiIyMTAzMjRmMS05MTE0LTQ1NGEtODRmMy1hZjUzZmUxNzdjNzIiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.OuprVlyNnKuLkoQmP8shP38G3Hje91GBhu4E0HD2Fes" `
-        The result will be:
-        `
-        [
-          {
-            "id": 1,
-            "username": "john.doe",
-            "firstName": "John",
-            "lastName": "Doe",
-            "roles": [
-              {
-                "id": 1,
-                "roleName": "STANDARD_USER",
-                "description": "Standard User - Has no admin rights"
-              }
-            ]
-          },
-          {
-            "id": 2,
-            "username": "admin.admin",
-            "firstName": "Admin",
-            "lastName": "Admin",
-            "roles": [
-              {
-                "id": 1,
-                "roleName": "STANDARD_USER",
-                "description": "Standard User - Has no admin rights"
-              },
-              {
-                "id": 2,
-                "roleName": "ADMIN_USER",
-                "description": "Admin User - Has permission to perform admin tasks"
-              }
-            ]
-          }
-        ]
-        `
+       As with the previous example first generate an access token for the admin user with the credentials provided above then run
+           `curl  http://localhost:8080/springjwt/users -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYWRtaW4uYWRtaW4iLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNDk0NDU0OTIzLCJhdXRob3JpdGllcyI6WyJTVEFOREFSRF9VU0VSIiwiQURNSU5fVVNFUiJdLCJqdGkiOiIyMTAzMjRmMS05MTE0LTQ1NGEtODRmMy1hZjUzZmUxNzdjNzIiLCJjbGllbnRfaWQiOiJ0ZXN0and0Y2xpZW50aWQifQ.OuprVlyNnKuLkoQmP8shP38G3Hje91GBhu4E0HD2Fes" `
+           The result will be:
+           `
+           [
+             {
+               "id": 1,
+               "username": "john.doe",
+               "firstName": "John",
+               "lastName": "Doe",
+               "roles": [
+                 {
+                   "id": 1,
+                   "roleName": "STANDARD_USER",
+                   "description": "Standard User - Has no admin rights"
+                 }
+               ]
+             },
+             {
+               "id": 2,
+               "username": "admin.admin",
+               "firstName": "Admin",
+               "lastName": "Admin",
+               "roles": [
+                 {
+                   "id": 1,
+                   "roleName": "STANDARD_USER",
+                   "description": "Standard User - Has no admin rights"
+                 },
+                 {
+                   "id": 2,
+                   "roleName": "ADMIN_USER",
+                   "description": "Admin User - Has permission to perform admin tasks"
+                 }
+               ]
+             }
+           ]
+           `
