@@ -13,9 +13,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import java.util.Arrays;
-
-import static com.nouhoun.springboot.jwt.integration.config.SecurityConfig.SIGNING_KEY;
-
 /**
  * Created by nydiarra on 06/05/17.
  */
@@ -24,6 +21,7 @@ import static com.nouhoun.springboot.jwt.integration.config.SecurityConfig.SIGNI
 @EnableResourceServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     static final String CLIEN_ID = "testjwtclientid";
+    static final String CLIENT_SECRET = "XY7kmzoNzl100";
     static final String GRANT_TYPE = "password";
     static final String SCOPE_READ = "read";
     static final String SCOPE_WRITE = "write";
@@ -43,7 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         configurer
                 .inMemory()
                 .withClient(CLIEN_ID)
-                .secret(SIGNING_KEY)
+                .secret(CLIENT_SECRET)
                 .authorizedGrantTypes(GRANT_TYPE)
                 .scopes(SCOPE_READ, SCOPE_WRITE)
                 .resourceIds(RESOURCES_IDS);

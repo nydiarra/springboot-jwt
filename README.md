@@ -21,7 +21,7 @@ Use one of the several ways of running a Spring Boot application. Below are just
  ### First you will need the following basic pieces of information:
  
  * client: testjwtclientid
- * secret: MaYzkSjmkzPC57L
+ * secret: XY7kmzoNzl100
  * Non-admin username and password: john.doe and jwtpass
  * Admin user: admin.admin and jwtpass
  * Example of resource accessible to all authenticated users:  http://localhost:8080/springjwt/cities
