@@ -1,6 +1,7 @@
 package com.nouhoun.springboot.jwt.integration.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +18,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import com.nouhoun.springboot.jwt.integration.repository.UserRepository;
-
 /**
  * Created by nydiarra on 06/05/17.
  */
@@ -26,15 +25,18 @@ import com.nouhoun.springboot.jwt.integration.repository.UserRepository;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	static final String SIGNING_KEY = "MaYzkSjmkzPC57L";
-	static final Integer ENCODING_STRENGTH = 256;
-	static final String SECURITY_REALM = "Spring Boot JWT Example Realm";
+
+	@Value("${security.signing-key}")
+	private String signingKey;
+
+	@Value("${security.encoding-strength}")
+	private Integer encodingStrength;
+
+	@Value("${security.security-realm}")
+	private String securityRealm;
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@Bean
 	@Override
@@ -45,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService)
-		        .passwordEncoder(new ShaPasswordEncoder(ENCODING_STRENGTH));
+		        .passwordEncoder(new ShaPasswordEncoder(encodingStrength));
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/springjwt/**").authenticated()
 		        .and()
 		        .httpBasic()
-		        .realmName(SECURITY_REALM)
+		        .realmName(securityRealm)
 		        .and()
 		        .csrf()
 		        .disable();
@@ -69,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey(SIGNING_KEY);
+		converter.setSigningKey(signingKey);
 		return converter;
 	}
 

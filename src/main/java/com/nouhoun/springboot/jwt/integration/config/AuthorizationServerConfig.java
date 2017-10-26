@@ -1,6 +1,9 @@
 package com.nouhoun.springboot.jwt.integration.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -12,7 +15,6 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import java.util.Arrays;
 /**
  * Created by nydiarra on 06/05/17.
  */
@@ -20,42 +22,53 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 @EnableResourceServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    static final String CLIENT_ID = "testjwtclientid";
-    static final String CLIENT_SECRET = "XY7kmzoNzl100";
-    static final String GRANT_TYPE = "password";
-    static final String SCOPE_READ = "read";
-    static final String SCOPE_WRITE = "write";
-    static final String RESOURCES_IDS = "testjwtresourceid";
 
-    @Autowired
-    private TokenStore tokenStore;
+	@Value("${security.jwt.client-id}")
+	private String clientId;
 
-    @Autowired
-    private JwtAccessTokenConverter accessTokenConverter;
+	@Value("${security.jwt.client-secret}")
+	private String clientSecret;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Value("${security.jwt.grant-type}")
+	private String grantType;
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-        configurer
-                .inMemory()
-                .withClient(CLIENT_ID)
-                .secret(CLIENT_SECRET)
-                .authorizedGrantTypes(GRANT_TYPE)
-                .scopes(SCOPE_READ, SCOPE_WRITE)
-                .resourceIds(RESOURCES_IDS);
-    }
+	@Value("${security.jwt.scope-read}")
+	private String scopeRead;
 
+	@Value("${security.jwt.scope-write}")
+	private String scopeWrite = "write";
 
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-        enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
-        endpoints.tokenStore(tokenStore)
-                .accessTokenConverter(accessTokenConverter)
-                .tokenEnhancer(enhancerChain)
-                .authenticationManager(authenticationManager);
-    }
+	@Value("${security.jwt.resource-ids}")
+	private String resourceIds;
+
+	@Autowired
+	private TokenStore tokenStore;
+
+	@Autowired
+	private JwtAccessTokenConverter accessTokenConverter;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Override
+	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+		configurer
+		        .inMemory()
+		        .withClient(clientId)
+		        .secret(clientSecret)
+		        .authorizedGrantTypes(grantType)
+		        .scopes(scopeRead, scopeWrite)
+		        .resourceIds(resourceIds);
+	}
+
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+		enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+		endpoints.tokenStore(tokenStore)
+		        .accessTokenConverter(accessTokenConverter)
+		        .tokenEnhancer(enhancerChain)
+		        .authenticationManager(authenticationManager);
+	}
 
 }
