@@ -20,7 +20,7 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 @EnableResourceServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    static final String CLIEN_ID = "testjwtclientid";
+    static final String CLIENT_ID = "testjwtclientid";
     static final String CLIENT_SECRET = "XY7kmzoNzl100";
     static final String GRANT_TYPE = "password";
     static final String SCOPE_READ = "read";
@@ -40,7 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
                 .inMemory()
-                .withClient(CLIEN_ID)
+                .withClient(CLIENT_ID)
                 .secret(CLIENT_SECRET)
                 .authorizedGrantTypes(GRANT_TYPE)
                 .scopes(SCOPE_READ, SCOPE_WRITE)
