@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -56,10 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .sessionManagement()
 		        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		        .and()
-		        .authorizeRequests()
-		        .antMatchers("/actuator/**", "/api-docs/**").permitAll()
-		        .antMatchers("/springjwt/**").authenticated()
-		        .and()
 		        .httpBasic()
 		        .realmName(securityRealm)
 		        .and()
@@ -81,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	@Primary //Making this primary to avoid any accidental duplication with another token service instance of the same name
 	public DefaultTokenServices tokenServices() {
 		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 		defaultTokenServices.setTokenStore(tokenStore());
