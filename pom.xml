@@ -22,6 +22,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		
+	    <base>frolvlad/alpine-oraclejdk8:slim</base>
+	    <tomcat.port>9081</tomcat.port>
+	    <tomcat.ip>127.0.0.1</tomcat.ip>
+	    <file>readme</file>
+	    
 	</properties>
 
 	<dependencies>
@@ -80,16 +86,54 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+					<addResources>true</addResources>
                 </configuration>
-            </plugin>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+			</plugin>
+			
+	         <plugin>
+		        <groupId>io.fabric8</groupId>
+		        <artifactId>docker-maven-plugin</artifactId>
+		        <extensions>true</extensions>
+		        
+ 		        <configuration>
+		          <images>
+			            <image>
+			              <name>springboot-jwt</name>
+			              <alias>springboot-jwt</alias>
+			              <build>
+			                <filter>@</filter>
+			                <dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
+			                <assembly>
+			                  <descriptorRef>artifact</descriptorRef>
+			                </assembly>
+			              </build>
+			              <run>
+			              	<namingStrategy>alias</namingStrategy>
+			                <ports> 
+			                  <port>${tomcat.port}:8080</port>
+			                </ports>
+					         <wait> 
+					           <http>
+					              <url>http://${tomcat.ip}:${tomcat.port}/health</url>
+					           </http>
+					           <time>90000</time>
+					         </wait>
+			              </run>
+			            </image>
+		          </images>
+		        </configuration>	
+		        	
+		      </plugin>
 		</plugins>
 	</build>
-
 
 </project>
