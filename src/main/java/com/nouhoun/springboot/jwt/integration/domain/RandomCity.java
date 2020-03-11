@@ -1,12 +1,16 @@
 package com.nouhoun.springboot.jwt.integration.domain;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by nydiarra on 10/05/17.
  */
 @Entity
 @Table(name = "random_city")
+@Getter
+@Setter
 public class RandomCity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,20 +19,4 @@ public class RandomCity {
 
     @Column(name = "name")
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
