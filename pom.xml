@@ -22,9 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		
-	    <base>frolvlad/alpine-oraclejdk8:slim</base>
-	    <tomcat.port>9081</tomcat.port>
+		<tomcat.port>9081</tomcat.port>
 	    <tomcat.ip>127.0.0.1</tomcat.ip>
 	    <file>readme</file>
 	    
@@ -123,7 +121,7 @@
 			                </ports>
 					         <wait> 
 					           <http>
-					              <url>http://${tomcat.ip}:${tomcat.port}/health</url>
+					              <url>http://${tomcat.ip}:${tomcat.port}/actuator/health</url>
 					           </http>
 					           <time>90000</time>
 					         </wait>
